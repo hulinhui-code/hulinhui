@@ -1,11 +1,11 @@
 \name{hello}
 \alias{hello}
-\title{Hello, World!}
+\title{Hello, Linhui!}
 \usage{
 hello()
 }
 \description{
-Prints 'Hello, world!'.
+Prints 'Hello, Linhui!'.
 }
 \examples{
 hello()
