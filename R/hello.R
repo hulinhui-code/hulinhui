@@ -6,6 +6,7 @@
 #' hello()
 hello <- function() {
   print("Hello, Linhui!")
+  print('Good night')
 }
 
 
