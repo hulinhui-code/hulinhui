@@ -1,3 +1,6 @@
+# Hello, world!
+
+#' @export
 hello <- function() {
   .libPaths("D:\\Program Files\\RStudio\\R\\packages_hulinhui")   # 包的存与取的路径
   print(paste("包的存取路径已设置为：", "D:\Program Files\RStudio\R\packages_hulinhui", sep="")
