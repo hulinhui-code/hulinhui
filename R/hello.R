@@ -14,7 +14,7 @@ updateR <- function() {
 
 
 install.myPackage <- function(package_name) {
-  install.packages(package_name, lib="D:\\Program Files\\RStudio\\R\\packages_hulinhui")
+  install.packages(package_name, lib="C:/Program Files/RStudio/R/packages_hulinhui")
   }
 
 
