@@ -4,8 +4,12 @@
 #' @return a string
 #' @examples
 #' hello()
+
+print('Hello, Linhui')
+
+
 hello <- function() {
-  print("Hello, Linhui!")
+  print("Hello, World!")
   print('Good night')
 }
 
