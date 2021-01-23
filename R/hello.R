@@ -5,13 +5,25 @@
 #' @examples
 #' hello()
 
-print('Hello, Linhui')
+print('Hello, Linhui')   # library时不能自动运行
 
 
 hello <- function() {
   print("Hello, World!")
   print('Good night')
 }
+
+
+updateR <- function(){
+  .libPaths("D:\\Program Files\\RStudio\\R\\packages_hulinhui")
+  detach(package:mypkg)
+  library(devtools) 
+  install_github('hulinhui-code/hulinhui', force = TRUE,lib='C:/Users/Jack/Documents/R/win-library/4.0')
+  .libPaths('C:/Users/Jack/Documents/R/win-library/4.0')
+  library(mypkg)   # 一旦载入包后，改变安装包的路径不影响函数的使用
+  .libPaths("D:\\Program Files\\RStudio\\R\\packages_hulinhui")
+  }
+
 
 
 display_file <- function(pdf_path){
