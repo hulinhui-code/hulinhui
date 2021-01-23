@@ -3,7 +3,7 @@ Type: Package
 Title: Hu Linhui's Personal Package
 Version: 0.1.0
 Author: Hu Linhui
-Maintainer: Hu Linhui <hulinhui@live.cn; hulihuihong@163.com>
+Maintainer: Hu Linhui <hulinhui@live.cn>
 Description: Packages of functions analysing data.
     R is good.
     R is pretty.
