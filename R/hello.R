@@ -1,16 +1,7 @@
-#' Hello, world!
-#' @export 
-#' @param 
-#' @return a string
-#' @examples
-#' hello()
-
-print('Hello, Linhui')   # library时不能自动运行
-
-
 hello <- function() {
-  print("Hello, World!")
-  print('Good night')
+  .libPaths("D:\\Program Files\\RStudio\\R\\packages_hulinhui")   # 包的存与取的路径
+  print(paste("包的存取路径已设置为：", "D:\Program Files\RStudio\R\packages_hulinhui", sep="")
+  print('Good luck')
 }
 
 
@@ -19,11 +10,12 @@ updateR <- function() {
   detach(package:mypkg)
   library(devtools) 
   install_github('hulinhui-code/hulinhui', force = TRUE,lib='C:/Users/Jack/Documents/R/win-library/4.0')
-  .libPaths('C:/Users/Jack/Documents/R/win-library/4.0')
-  library(mypkg)   # 一旦载入包后，改变安装包的路径不影响函数的使用？
-#   .libPaths("D:\\Program Files\\RStudio\\R\\packages_hulinhui")
   }
 
+
+install.myPackage <- function(package_name) {
+  install.packages(package_name, lib="D:\\Program Files\\RStudio\\R\\packages_hulinhui")
+  }
 
 
 display_file <- function(pdf_path){
