@@ -3,5 +3,5 @@
 #' @param
 
 hello <- function() {
-  print("Hello, world!")
+  print("Hello, Linhui!")
 }
