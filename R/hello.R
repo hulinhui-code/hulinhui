@@ -4,12 +4,12 @@
 #' @return a string
 #' @examples
 #' hello()
-
 hello <- function() {
   print("Hello, Linhui!")
 }
 
 
+#' @export
 display_file <- function(pdf_path){
 pdf_html <- paste('<iframe src="',pdf_path,
                   '" align="center" width="1111" height="900" frameBorder="0"></iframe>',
