@@ -14,7 +14,7 @@ hello <- function() {
 }
 
 
-updateR <- function(){
+updateR <- function() {
   .libPaths("D:\\Program Files\\RStudio\\R\\packages_hulinhui")
   detach(package:mypkg)
   library(devtools) 
