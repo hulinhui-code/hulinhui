@@ -20,8 +20,8 @@ updateR <- function() {
   library(devtools) 
   install_github('hulinhui-code/hulinhui', force = TRUE,lib='C:/Users/Jack/Documents/R/win-library/4.0')
   .libPaths('C:/Users/Jack/Documents/R/win-library/4.0')
-  library(mypkg)   # 一旦载入包后，改变安装包的路径不影响函数的使用
-  .libPaths("D:\\Program Files\\RStudio\\R\\packages_hulinhui")
+  library(mypkg)   # 一旦载入包后，改变安装包的路径不影响函数的使用？
+#   .libPaths("D:\\Program Files\\RStudio\\R\\packages_hulinhui")
   }
 
 
@@ -44,11 +44,6 @@ IRdisplay::display_html(pdf_html)}
 
 
 display_missing_data <- function(df){df[which(rowSums(is.na(df))>=1),]}
-
-
-fuck <- function(color){
-    return (paste("fuck", color, "pussy!"))
-}
 
 
 yt <- function(short_code_url){
