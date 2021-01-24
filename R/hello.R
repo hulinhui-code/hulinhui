@@ -8,7 +8,7 @@ hello <- function() {
 
 updateR <- function() {
   lib <- (.packages())  # 已加载包列表
-  if ('mypkg' %in% lib) {detach(package:mypkg)}  如果mypkg已加载，则卸载
+  if ('mypkg' %in% lib) {detach(package:mypkg)}  #如果mypkg已加载，则卸载
   library(devtools) 
   install_github('hulinhui-code/hulinhui', lib = 'D:/R pkg lib')
   }
