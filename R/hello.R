@@ -2,22 +2,24 @@
 
 #' @export
 hello <- function() {
-  .libPaths("D:/Program Files/RStudio/R/packages_hulinhui")   # 包的存与取的路径
-  print(paste("包的存取路径已设置为：", "D:/Program Files/RStudio/R/packages_hulinhui", sep=""))
   print('Good luck')
 }
 
 
 updateR <- function() {
-  .libPaths("D:/Program Files/RStudio/R/packages_hulinhui")
-  detach(package:mypkg)
+  lib <- (.packages())  # 已加载包列表
+  if ('mypkg' %in% lib) {detach(package:mypkg)}  如果mypkg已加载，则卸载
   library(devtools) 
-  install_github('hulinhui-code/hulinhui', force = TRUE,lib='C:/Users/Jack/Documents/R/win-library/4.0')
+  install_github('hulinhui-code/hulinhui')
   }
 
 
-install.myPackage <- function(package_name) {
-  install.packages(package_name, lib="C:/Program Files/RStudio/R/packages_hulinhui")
+myInstall <- function(package_name) {
+  install.packages(package_name, lib="D:/R pkg lib")
+  }
+
+myLibrary <- function(package_name) {
+  library(package_name, lib="D:/R pkg lib")
   }
 
 
