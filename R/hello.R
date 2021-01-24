@@ -2,14 +2,14 @@
 
 #' @export
 hello <- function() {
-  .libPaths("D:/Program Files/RStudio/R\\packages_hulinhui")   # 包的存与取的路径
+  .libPaths("D:\Program Files\RStudio\R\\packages_hulinhui")   # 包的存与取的路径
   print(paste("包的存取路径已设置为：", "D:\Program Files\RStudio\R\packages_hulinhui", sep="")
   print('Good luck')
 }
 
 
 updateR <- function() {
-  .libPaths("D:/Program Files/RStudio/R\\packages_hulinhui")
+  .libPaths("D:\Program Files\RStudio\R\\packages_hulinhui")
   detach(package:mypkg)
   library(devtools) 
   install_github('hulinhui-code/hulinhui', force = TRUE,lib='C:/Users/Jack/Documents/R/win-library/4.0')
