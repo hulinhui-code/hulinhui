@@ -20,7 +20,7 @@ myInstall <- function(package_name) {
   }
 
 myLibrary <- function(package_name) {
-  library(package_name, lib="D:/R pkg lib")
+  library(package_name, lib="D:/R pkg lib", character.only=TRUE)
   }
 
 
