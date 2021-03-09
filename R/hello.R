@@ -20,7 +20,12 @@ myInstall <- function(package_name) {
   }
 
 myLibrary <- function(package_name) {
+  if (length(package_name) ==1) { 
   library(package_name, lib="D:/R pkg lib", character.only=TRUE)
+  } else
+    for (pkg in package_name){
+        library(pkg, lib="D:/R pkg lib", character.only=TRUE)
+    } 
   }
 
 
