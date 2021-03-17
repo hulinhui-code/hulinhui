@@ -14,6 +14,13 @@ updateR <- function() {
 #   library(mypkg)   # 安装完成加载 ## 没用，更新完后还是要重新载入
   }
 
+mygithub_install <- function(package_name, github_name){
+  lib <- (.packages())  # 已加载包列表
+  if (package_name %in% lib) {remove(package_name, lib="D:/R pkg lib")}  #如果已加载，则卸载
+  library(devtools)
+  install_github(github_name, lib = c('D:/R pkg lib'))
+  }
+
 
 myInstall <- function(package_name) {
   install.packages(package_name, lib="D:/R pkg lib")
