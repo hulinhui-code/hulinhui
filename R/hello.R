@@ -86,3 +86,27 @@ open_r <- function(){
 OCR_app<- function(){
     shell.exec("D:/Python App/图形化界面应用_OCR.exe")
 }
+
+cal_metrics <- function(label, pred){
+    # label: 金标准，0 1 变量
+    # pred: 模型预测值，连续变量
+  roc.p=pROC::roc(label, pred)
+  if (roc.p$auc>0.5){
+    cutoff=roc.p$thresholds[which.max(roc.p$sensitivities+roc.p$specificities)]
+    sensitivity=roc.p$sensitivities[which.max(roc.p$sensitivities+roc.p$specificities)]
+    specificity=roc.p$specificities[which.max(roc.p$sensitivities+roc.p$specificities)]
+    df=data.frame(type='positive classification',
+                  auc=round(roc.p$auc,3),cutoff=cutoff,
+                  sensitivity=sensitivity,specificity=specificity)
+    return(df)
+  }
+  else{
+    cutoff=roc.p$thresholds[which.min(roc.p$sensitivities+roc.p$specificities)]
+    sensitivity=roc.p$sensitivities[which.min(roc.p$sensitivities+roc.p$specificities)]
+    specificity=roc.p$specificities[which.min(roc.p$sensitivities+roc.p$specificities)]
+    df=data.frame(type='negative classification',
+                  auc=1-round(roc.p$auc,3),cutoff=cutoff,
+                  sensitivity=1-sensitivity,specificity=1-specificity)
+    return(df)
+  }
+}
