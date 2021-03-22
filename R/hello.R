@@ -114,7 +114,6 @@ cal_metrics <- function(label, pred){
 
 
 cal_statistics_sspn<-function(fp, tp, tn, fn, decimal_digit=3){
-  # 根据四格表计算sens,spec,ppv,npv, lr及其95%CI
   z=1.95996
   zsq = z**2
   a=fp
@@ -125,7 +124,13 @@ cal_statistics_sspn<-function(fp, tp, tn, fn, decimal_digit=3){
   cd=tn+fn
   ac=fp+tn
   bd=tp+fn
+  bc=tp+tn
   nn=fp+tp+tn+fn
+
+  # 计算accuracy
+  accu = bc/nn
+  accu_l95b = binom.test(bc, nn)[['conf.int']][1]
+  accu_u95b = binom.test(bc, nn)[['conf.int']][2]
   
   # 计算prevanlence
   prev = bd/nn 
@@ -287,13 +292,13 @@ cal_statistics_sspn<-function(fp, tp, tn, fn, decimal_digit=3){
   
 
   
-  statistics_df = data.frame(Metric=c('Prevalance','Senstivity','Specificity','Positive','Negative',
+  statistics_df = data.frame(Metric=c('Prevalance','Accuracy', 'Senstivity','Specificity','Positive','Negative',
                                         'Positive Predictive Value','Negative Predictive Value',
                                         'Positive likelihood Ratios','Negative likelihood Ratios'), 
-    Estimated.value = c(prev,sens,spec,ppos,pneg,ppv,npv,pl,nl),
-    Lower.95CI = c(prev_l95b,sens_l95b,spec_l95b,ppos_l95b,
+    Estimated.value = c(prev,accu, sens,spec,ppos,pneg,ppv,npv,pl,nl),
+    Lower.95CI = c(prev_l95b,accu_l95b, sens_l95b,spec_l95b,ppos_l95b,
                    pneg_l95b,ppv_l95b,npv_l95b,pl_l95b,nl_l95b),
-    Upper.95CI=c(prev_u95b,sens_u95b,spec_u95b,ppos_u95b,
+    Upper.95CI=c(prev_u95b,accu_u95b, sens_u95b,spec_u95b,ppos_u95b,
                  pneg_u95b,ppv_u95b,npv_u95b,pl_u95b,nl_u95b)
     )
   options(digits=decimal_digit)
