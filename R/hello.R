@@ -88,6 +88,7 @@ OCR_app<- function(){
 }
 
 cal_metrics <- function(label, pred){
+    # 根据金标准和预测值的列表计算最佳cutoff及对应的sens和spec
     # label: 金标准，0 1 变量
     # pred: 模型预测值，连续变量
   roc.p=pROC::roc(label, pred)
@@ -110,3 +111,190 @@ cal_metrics <- function(label, pred){
     return(df)
   }
 }
+
+
+cal_statistics_sspn<-function(fp, tp, tn, fn, decimal_digit=3){
+  # 根据四格表计算sens,spec,ppv,npv, lr及其95%CI
+  z=1.95996
+  zsq = z**2
+  a=fp
+  b=tp
+  c=tn
+  d=fn
+  ab=fp+tp
+  cd=tn+fn
+  ac=fp+tn
+  bd=tp+fn
+  nn=fp+tp+tn+fn
+  
+  # 计算prevanlence
+  prev = bd/nn 
+  ## lower limit of 95%CI of prev #
+  p=prev
+  n = nn
+  q = 1 - p
+  num = (2*n*p)+zsq-1-(z*sqrt(zsq-2-(1/n)+4*p*((n*q)+1)))
+  denom = 2*(n+zsq)
+  prev_l95b = num/denom
+  
+  
+  if (p==0)
+    {prev_l95b=0}
+  else{p=prev}
+  ## upper limit of 95%CI of prev #
+  num = (2*n*p)+zsq+1+(z*sqrt(zsq+2-(1/n)+4*p*((n*q)-1)))
+  denom = 2*(n+zsq)
+  prev_u95b = num/denom
+  if (p==1)
+    {prev_u95b=1}
+  else{p=prev}
+  
+  # 计算senstivity
+  sens = tp/bd
+  n = bd
+  p = sens
+  ## begin l95b #
+  q = 1-p
+  num = (2*n*p)+zsq-1-(z*sqrt(zsq-2-(1/n)+4*p*((n*q)+1)))
+  denom = 2*(n+zsq)
+  sens_l95b = num/denom
+  if (p==0)
+    {sens_l95b = 0}
+  else{p = sens}
+  ## begin u95b #
+  num = (2*n*p)+zsq+1+(z*sqrt(zsq+2-(1/n)+4*p*((n*q)-1)));
+  denom = 2*(n+zsq);
+  sens_u95b = num/denom;
+  if (p==1)
+    {sens_u95b = 1}
+  else{p = sens}
+  #计算Specificity
+  spec = tn/ac
+  n = ac
+  p = spec
+  ## begin l95b #
+  q = 1-p;
+  num = (2*n*p)+zsq-1-(z*sqrt(zsq-2-(1/n)+4*p*((n*q)+1)))
+  denom = 2*(n+zsq)
+  spec_l95b = num/denom
+  if (p==0)
+    {spec_l95b = 0}
+  else{p = spec}
+  
+  
+  ## begin u95b #
+  num = (2*n*p)+zsq+1+(z*sqrt(zsq+2-(1/n)+4*p*((n*q)-1)))
+  denom = 2*(n+zsq)
+  spec_u95b = num/denom
+  if (p==1)
+    {spec_u95b = 1}
+  else{p = spec}
+  #计算阳性率ppos
+  ppos = ab/nn
+  
+  n = nn
+  p = ppos
+  
+  ## begin l95b #
+  q = 1-p
+  num = (2*n*p)+zsq-1-(z*sqrt(zsq-2-(1/n)+4*p*((n*q)+1)))
+  denom = 2*(n+zsq)
+  ppos_l95b = num/denom
+  if (p==0)
+   { ppos_l95b = 0}
+  else(p = ppos)
+  
+  ## begin u95b #
+  num = (2*n*p)+zsq+1+(z*sqrt(zsq+2-(1/n)+4*p*((n*q)-1)))
+  denom = 2*(n+zsq)
+  ppos_u95b = num/denom
+  if (p==1)
+    {ppos_u95b = 1}
+  else(p = ppos)
+  #计算阴性率pneg 
+  pneg = cd/nn
+  n = nn
+  p = pneg
+  ## begin l95b #
+  q = 1-p
+  num = (2*n*p)+zsq-1-(z*sqrt(zsq-2-(1/n)+4*p*((n*q)+1)))
+  denom = 2*(n+zsq)
+  pneg_l95b = num/denom
+  if (p==0)
+    {pneg_l95b = 0}
+  else{p = pneg}
+  ## begin u95b #
+  num = (2*n*p)+zsq+1+(z*sqrt(zsq+2-(1/n)+4*p*((n*q)-1)))
+  denom = 2*(n+zsq)
+  pneg_u95b = num/denom
+  if (p==1)
+    {pneg_u95b = 1}
+  else{p = pneg}
+  #计算阳性预测值PPV
+  ppv = b/ab
+  n = ab
+  p = ppv
+  ##begin l95b
+  q = 1-p
+  num = (2*n*p)+zsq-1-(z*sqrt(zsq-2-(1/n)+4*p*((n*q)+1)))
+  denom = 2*(n+zsq)
+  ppv_l95b = num/denom
+  if (p==0)
+    {ppv_l95b = 0}
+  else{p = ppv}
+  
+  ##begin u95b#
+  num = (2*n*p)+zsq+1+(z*sqrt(zsq+2-(1/n)+4*p*((n*q)-1)))
+  denom = 2*(n+zsq)
+  ppv_u95b = num/denom
+  if (p==1)
+    {ppv_u95b = 1}
+  else{p = ppv}
+  #计算阴性预测值NPV
+  npv = c/cd
+  n = cd
+  p = npv
+  ##begin l95b
+  q = 1-p
+  num = (2*n*p)+zsq-1-(z*sqrt(zsq-2-(1/n)+4*p*((n*q)+1)));
+  denom = 2*(n+zsq);
+  npv_l95b = num/denom;
+  if (p==0)
+    {npv_l95b = 0}
+  else{p = npv}
+  ## begin u95b
+  num = (2*n*p)+zsq+1+(z*sqrt(zsq+2-(1/n)+4*p*((n*q)-1)));
+  denom = 2*(n+zsq);
+  npv_u95b = num/denom;
+  if (p==1)
+    {npv_u95b = 1}
+  else{p = npv}
+  # 计算阳性似然比  #计算阴性似然比
+  pl = sens/(1-spec);
+  nl = (1-sens)/spec;   
+  xp = sqrt(((1-sens)/b)+(spec/a))
+  xn = sqrt((sens)/d)+((1-spec)/c)
+  lgpl = log(pl)
+  lgnl = log(nl)     
+  ## 95%CI
+  pl_l95b = exp(lgpl-(1.95996*xp));
+  pl_u95b = exp(lgpl+(1.95996*xp));
+  
+  
+  ## 阴性似然比95%CI
+  nl_l95b = exp(lgnl-(1.95996*xn));
+  nl_u95b = exp(lgnl+(1.95996*xn));
+  
+
+  
+  statistics_df = data.frame(Metric=c('Prevalance','senstivity','Specificity','Positive','Negative',
+                                        'Positive Predictive Value','Negative Predictive Value',
+                                        'Positive likelihood Ratios','Negative likelihood Ratios'), 
+    Estimated.value = c(prev,sens,spec,ppos,pneg,ppv,npv,pl,nl),
+    Lower.95CI = c(prev_l95b,sens_l95b,spec_l95b,ppos_l95b,
+                   pneg_l95b,ppv_l95b,npv_l95b,pl_l95b,nl_l95b),
+    Upper.95CI=c(prev_u95b,sens_u95b,spec_u95b,ppos_u95b,
+                 pneg_u95b,ppv_u95b,npv_u95b,pl_u95b,nl_u95b)
+    )
+  options(digits=decimal_digit)
+  return(statistics_df)}
