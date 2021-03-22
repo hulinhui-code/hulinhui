@@ -287,7 +287,7 @@ cal_statistics_sspn<-function(fp, tp, tn, fn, decimal_digit=3){
   
 
   
-  statistics_df = data.frame(Metric=c('Prevalance','senstivity','Specificity','Positive','Negative',
+  statistics_df = data.frame(Metric=c('Prevalance','Senstivity','Specificity','Positive','Negative',
                                         'Positive Predictive Value','Negative Predictive Value',
                                         'Positive likelihood Ratios','Negative likelihood Ratios'), 
     Estimated.value = c(prev,sens,spec,ppos,pneg,ppv,npv,pl,nl),
